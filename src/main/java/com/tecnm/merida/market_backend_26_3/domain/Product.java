@@ -1,7 +1,5 @@
 package com.tecnm.merida.market_backend_26_3.domain;
 
-import jdk.jfr.Category;
-
 public class Product {
 
     private Integer productId;
@@ -68,5 +66,3 @@ public class Product {
         this.category = category;
     }
 }
-
-
