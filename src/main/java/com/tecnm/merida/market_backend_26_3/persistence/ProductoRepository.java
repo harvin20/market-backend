@@ -18,7 +18,7 @@ public class ProductoRepository {
     }
 
     public List<Producto> getByCategory(int idCategoria) {
-        return productoCrudRepository.findByIdcategoriaOrderByNombreAsc(idCategoria);
+        return productoCrudRepository.findByIdCategoriaOrderByNombreAsc(idCategoria);
     }
 
     public Optional<List<Producto>> getEscasos(int cantidad){
