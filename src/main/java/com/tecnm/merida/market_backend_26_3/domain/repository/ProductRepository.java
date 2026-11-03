@@ -12,7 +12,6 @@ Optional<List<Product>> getByCategory(int categoryId);
 Optional<List<Product>>getScarceProducts(int quantity);
 Optional<Product>getProduct(int productID);
 Product save(Product product);
-Product delete(Product product);
-
+void delete(int productId);
 }
 
