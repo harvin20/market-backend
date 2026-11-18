@@ -10,7 +10,12 @@ import java.util.Optional;
 @Service
 public class ProductService {
 
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
+    public ProductService(ProductRepository productRepository) { this.productRepository = productRepository; }
+    @org.springframework.transaction.annotation.Transactional
+    public Optional<Product> update(int id, Product product) {
+        return getProduct(id).map(existing -> { product.setProductId(id); return productRepository.save(product); });
+    }
     public List<Product> getAll(){
         return productRepository.getAll();
     }
@@ -23,6 +28,7 @@ public class ProductService {
         return productRepository.getByCategory(categoryId);
     }
     public Product save(Product product){
+        product.setProductId(null);
         return productRepository.save(product);
     }
     public boolean delete (int productId){

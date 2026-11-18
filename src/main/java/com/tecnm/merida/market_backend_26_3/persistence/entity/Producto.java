@@ -1,7 +1,7 @@
 package com.tecnm.merida.market_backend_26_3.persistence.entity;
 
 import jakarta.persistence.*;
-import org.springframework.boot.autoconfigure.web.WebProperties;
+
 
 import java.time.LocalDateTime;
 import java.util.List;

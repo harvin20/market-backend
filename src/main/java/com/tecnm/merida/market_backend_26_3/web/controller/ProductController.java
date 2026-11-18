@@ -20,8 +20,13 @@ import java.util.List;
 @Tag(name = "Product",description = "Manage your products")
 public class ProductController {
 
-    private ProductService productService;
-    private ProductRepository productRepository;
+    private final ProductService productService;
+    public ProductController(ProductService productService) { this.productService = productService; }
+    @PutMapping("/{id}")
+    @Operation(summary = "Update a product")
+    public ResponseEntity<Product> update(@PathVariable("id") int id, @RequestBody Product product) {
+        return productService.update(id, product).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
 
     @GetMapping("")
     @Operation(summary = "Get all products",
@@ -65,7 +70,7 @@ public class ProductController {
     public ResponseEntity<List<Product>> getByCategory(
             @Parameter(description = "Category ID",
                     example = "7", required = true)
-            int categoryId){
+            @PathVariable("categoryId") int categoryId){
         return productService.getByCategory(categoryId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

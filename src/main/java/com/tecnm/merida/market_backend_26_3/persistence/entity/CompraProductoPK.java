@@ -30,4 +30,13 @@ public class CompraProductoPK implements Serializable {
         this.idProducto = idProducto;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof CompraProductoPK that)) return false;
+        return java.util.Objects.equals(idCompra, that.idCompra)
+            && java.util.Objects.equals(idProducto, that.idProducto);
+    }
+    @Override
+    public int hashCode() { return java.util.Objects.hash(idCompra, idProducto); }
 }

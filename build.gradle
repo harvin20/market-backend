@@ -18,6 +18,8 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	testRuntimeOnly 'com.h2database:h2'
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.2.0'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

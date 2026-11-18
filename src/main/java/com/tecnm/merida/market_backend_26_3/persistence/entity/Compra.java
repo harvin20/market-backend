@@ -32,7 +32,7 @@ public class Compra {
 
 
   //Relacion con CompraProducto
-    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
     private List <CompraProducto> productos;
 
     public Integer getIdCompra() {

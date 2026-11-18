@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 
 @Mapper(componentModel = "spring", uses = {ProductMapper.class})
 public interface PurchaseItemMapper {
