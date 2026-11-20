@@ -21,5 +21,15 @@ public class ClientService {
         return repository.findById(id).map(old -> { body.setId(id); return mapper.toClient(repository.save(mapper.toCliente(body))); });
     }
     @Transactional
+    public Optional<Client> patch(String id, com.tecnm.merida.market_backend_26_3.domain.ClientPatch body) {
+        return getById(id).map(existing -> {
+            if (body.apellidos() != null) existing.setApellidos(body.apellidos());
+            if (body.celular() != null) existing.setCelular(body.celular());
+            if (body.dirreccion() != null) existing.setDirreccion(body.dirreccion());
+            if (body.correoElectronico() != null) existing.setCorreoElectronico(body.correoElectronico());
+            return mapper.toClient(repository.save(mapper.toCliente(existing)));
+        });
+    }
+    @Transactional
     public boolean delete(String id) { if (!repository.existsById(id)) return false; repository.deleteById(id); return true; }
 }

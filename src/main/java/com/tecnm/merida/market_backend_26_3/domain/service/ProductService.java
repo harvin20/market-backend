@@ -20,6 +20,18 @@ public class ProductService {
         return productRepository.getAll();
     }
 
+    @org.springframework.transaction.annotation.Transactional
+    public Optional<Product> patch(int id, com.tecnm.merida.market_backend_26_3.domain.ProductPatch body) {
+        return getProduct(id).map(existing -> {
+            if (body.name() != null) existing.setName(body.name());
+            if (body.categoryId() != null) existing.setCategoryId(body.categoryId());
+            if (body.price() != null) existing.setPrice(body.price());
+            if (body.stock() != null) existing.setStock(body.stock());
+            if (body.active() != null) existing.setActive(body.active());
+            return productRepository.save(existing);
+        });
+    }
+
     public Optional<Product> getProduct(int productId){
         return productRepository.getProduct(productId);
     }

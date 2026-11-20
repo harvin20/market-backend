@@ -54,5 +54,17 @@ public class PurchaseService {
         });
     }
     @Transactional
+    public Optional<Purchase> patch(int id, PurchasePatch body) {
+        return repository.findById(id).flatMap(existing -> {
+            var items = body.productosAdquiridos() != null ? body.productosAdquiridos()
+                : existing.getProductos().stream().map(item -> new PurchaseRequest.Item(
+                    item.getId().getIdProducto(), item.getCantidad(), item.getTotal())).toList();
+            return update(id, new PurchaseRequest(
+                body.idCliente() != null ? body.idCliente() : existing.getIdCliente(),
+                body.medioPago() != null ? body.medioPago() : existing.getMedioPago(),
+                body.comentario() != null ? body.comentario() : existing.getComentario(), items));
+        });
+    }
+    @Transactional
     public boolean delete(int id) { if (!repository.existsById(id)) return false; repository.deleteById(id); return true; }
 }

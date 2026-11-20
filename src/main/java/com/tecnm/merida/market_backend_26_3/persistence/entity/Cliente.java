@@ -13,6 +13,7 @@ public class Cliente {
     private String id;
     private String apellidos;
     private String celular;
+    @Column(name = "direccion")
     private String dirreccion;
 
     @OneToMany(mappedBy = "cliente")

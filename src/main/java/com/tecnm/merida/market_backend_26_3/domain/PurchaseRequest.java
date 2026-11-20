@@ -5,7 +5,8 @@ import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 public record PurchaseRequest(
     @NotBlank @Schema(example = "CLI-001") String idCliente,
-    @NotBlank @Schema(example = "TARJETA") String medioPago,
+    @NotBlank @Schema(example = "TARJETA", allowableValues = {"TARJETA", "EFECTIVO", "T", "E"},
+        description = "TARJETA/T se guarda como T; EFECTIVO/E se guarda como E") String medioPago,
     @Schema(example = "Entregar por la tarde") String comentario,
     @NotEmpty List<@NotNull @Valid Item> productosAdquiridos
 ) {

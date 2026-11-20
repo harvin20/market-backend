@@ -9,7 +9,20 @@ public interface PurchaseRequestMapper {
     @Mapping(target = "fecha", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "estado", constant = "P")
     @Mapping(target = "productos", source = "productosAdquiridos")
+    @Mapping(target = "medioPago", source = "medioPago", qualifiedByName = "paymentCode")
     Compra toCompra(PurchaseRequest request);
+    @Named("paymentCode")
+    default String paymentCode(String value) {
+        if (value != null) {
+            switch (value) {
+                case "TARJETA", "T": return "T";
+                case "EFECTIVO", "E": return "E";
+            }
+        }
+        throw new org.springframework.web.server.ResponseStatusException(
+            org.springframework.http.HttpStatus.BAD_REQUEST,
+            "medioPago debe ser TARJETA, EFECTIVO, T o E");
+    }
     @Mapping(target = "id.idProducto", source = "idProducto")
     @Mapping(target = "id.idCompra", ignore = true)
     @Mapping(target = "compra", ignore = true)

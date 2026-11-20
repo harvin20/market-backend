@@ -20,6 +20,12 @@ public class PurchaseController {
     public List<Purchase> getByClient(@PathVariable("id") String id) { return service.getByClient(id); }
     @PostMapping
     public ResponseEntity<Purchase> create(@Valid @RequestBody PurchaseRequest body) { return ResponseEntity.status(HttpStatus.CREATED).body(service.save(body)); }
+    @PatchMapping("/{id}")
+    @io.swagger.v3.oas.annotations.Operation(summary = "Actualizar parcialmente", description = "Los campos omitidos o null conservan su valor. En compras, productosAdquiridos reemplaza la lista completa si se envia.")
+    public ResponseEntity<Purchase> patch(@PathVariable("id") int id,
+            @jakarta.validation.Valid @RequestBody com.tecnm.merida.market_backend_26_3.domain.PurchasePatch body) {
+        return service.patch(id, body).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
     @PutMapping("/{id}")
     public ResponseEntity<Purchase> update(@PathVariable("id") int id, @Valid @RequestBody PurchaseRequest body) { return service.update(id, body).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build()); }
     @DeleteMapping("/{id}")

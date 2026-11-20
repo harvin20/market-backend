@@ -20,5 +20,13 @@ public class CategoryService {
         return repository.findById(id).map(old -> { body.setCategoryId(id); return mapper.toCategory(repository.save(mapper.toCategoria(body))); });
     }
     @Transactional
+    public Optional<Category> patch(Integer id, com.tecnm.merida.market_backend_26_3.domain.CategoryPatch body) {
+        return getById(id).map(existing -> {
+            if (body.category() != null) existing.setCategory(body.category());
+            if (body.active() != null) existing.setActive(body.active());
+            return mapper.toCategory(repository.save(mapper.toCategoria(existing)));
+        });
+    }
+    @Transactional
     public boolean delete(Integer id) { if (!repository.existsById(id)) return false; repository.deleteById(id); return true; }
 }

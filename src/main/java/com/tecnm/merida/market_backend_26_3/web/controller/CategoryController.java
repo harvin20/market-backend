@@ -17,6 +17,12 @@ public class CategoryController {
     public ResponseEntity<Category> get(@PathVariable("id") Integer id) { return service.getById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build()); }
     @PostMapping
     public ResponseEntity<Category> create(@RequestBody Category body) { return ResponseEntity.status(HttpStatus.CREATED).body(service.create(body)); }
+    @PatchMapping("/{id}")
+    @io.swagger.v3.oas.annotations.Operation(summary = "Actualizar parcialmente", description = "Los campos omitidos o null conservan su valor. En compras, productosAdquiridos reemplaza la lista completa si se envia.")
+    public ResponseEntity<Category> patch(@PathVariable("id") int id,
+            @jakarta.validation.Valid @RequestBody com.tecnm.merida.market_backend_26_3.domain.CategoryPatch body) {
+        return service.patch(id, body).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
     @PutMapping("/{id}")
     public ResponseEntity<Category> update(@PathVariable("id") Integer id, @RequestBody Category body) { return service.update(id, body).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build()); }
     @DeleteMapping("/{id}")

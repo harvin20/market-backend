@@ -22,6 +22,12 @@ public class ProductController {
 
     private final ProductService productService;
     public ProductController(ProductService productService) { this.productService = productService; }
+    @PatchMapping("/{id}")
+    @io.swagger.v3.oas.annotations.Operation(summary = "Actualizar parcialmente", description = "Los campos omitidos o null conservan su valor. En compras, productosAdquiridos reemplaza la lista completa si se envia.")
+    public ResponseEntity<Product> patch(@PathVariable("id") int id,
+            @jakarta.validation.Valid @RequestBody com.tecnm.merida.market_backend_26_3.domain.ProductPatch body) {
+        return productService.patch(id, body).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
     @PutMapping("/{id}")
     @Operation(summary = "Update a product")
     public ResponseEntity<Product> update(@PathVariable("id") int id, @RequestBody Product product) {
